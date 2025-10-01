@@ -1,5 +1,5 @@
-// Simple Twitter-like Schema for Students
-// Perfect for learning Prisma basics!
+// prisma/schema.prisma
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,9 +10,9 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  username String  @unique
-  email    String  @unique
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  email    String @unique
   name     String
   posts    Post[]
   likes    Like[]
@@ -21,13 +21,13 @@ model User {
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  title     String   // Pastikan baris ini ada
   content   String
-  author    User      @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
   likes     Like[]
-  createdAt DateTime  @default(now())
-  // Kolom 'title' dihapus dari sini
+  createdAt DateTime @default(now())
 
   @@map("posts")
 }

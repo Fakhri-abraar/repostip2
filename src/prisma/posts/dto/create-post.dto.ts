@@ -1,3 +1,4 @@
+// src/prisma/posts/dto/create-post.dto.ts
 import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreatePostDto {

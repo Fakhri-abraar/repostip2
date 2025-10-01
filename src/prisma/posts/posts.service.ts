@@ -1,3 +1,5 @@
+// src/prisma/posts/posts.service.ts
+
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -8,12 +10,12 @@ export class PostsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createPostDto: CreatePostDto) {
-    // Ambil hanya properti yang ada di database: content dan authorId
-    // Properti 'title' dari DTO akan diabaikan
-    const { authorId, content } = createPostDto;
+    // Ambil semua properti dari DTO
+    const { authorId, content, title } = createPostDto;
 
     return this.prisma.post.create({
       data: {
+        title,     // Sertakan 'title'
         content,
         author: {
           connect: {
@@ -33,12 +35,10 @@ export class PostsService {
   }
 
   async update(id: number, updatePostDto: UpdatePostDto) {
-    // Pastikan hanya field 'content' yang bisa di-update, karena 'title' tidak ada
-    const { title, ...validUpdateData } = updatePostDto;
-
+    // Sederhanakan method update, hapus logika yang memisahkan title
     return this.prisma.post.update({
       where: { id },
-      data: validUpdateData,
+      data: updatePostDto,
     });
   }
 
