@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -8,13 +8,17 @@ export class PostsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createPostDto: CreatePostDto) {
-    // Destrukturisasi authorId dari DTO
-    const { authorId, ...postData } = createPostDto;
+    // Ambil hanya properti yang ada di database: content dan authorId
+    // Properti 'title' dari DTO akan diabaikan
+    const { authorId, content } = createPostDto;
+
     return this.prisma.post.create({
       data: {
-        ...postData,
+        content,
         author: {
-          connect: { id: authorId }, // Cara yang benar untuk membuat relasi
+          connect: {
+            id: authorId,
+          },
         },
       },
     });
@@ -25,36 +29,20 @@ export class PostsService {
   }
 
   async findOne(id: number) {
-    const post = await this.prisma.post.findUnique({
-      where: { id },
-    });
-    if (!post) {
-      throw new NotFoundException(`Post with ID ${id} not found`);
-    }
-    return post;
+    return this.prisma.post.findUnique({ where: { id } });
   }
 
   async update(id: number, updatePostDto: UpdatePostDto) {
-    await this.findOne(id); // Memastikan post ada
-    const { authorId, ...postData } = updatePostDto;
+    // Pastikan hanya field 'content' yang bisa di-update, karena 'title' tidak ada
+    const { title, ...validUpdateData } = updatePostDto;
+
     return this.prisma.post.update({
       where: { id },
-      data: {
-        ...postData,
-        // Jika authorId disertakan dalam update, kita juga bisa mengubah author post
-        ...(authorId && {
-          author: {
-            connect: { id: authorId },
-          },
-        }),
-      },
+      data: validUpdateData,
     });
   }
 
   async remove(id: number) {
-    await this.findOne(id); // Memastikan post ada
-    return this.prisma.post.delete({
-      where: { id },
-    });
+    return this.prisma.post.delete({ where: { id } });
   }
 }

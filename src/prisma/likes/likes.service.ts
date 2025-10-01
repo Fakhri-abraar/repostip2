@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateLikeDto } from './dto/create-like.dto';
 import { UpdateLikeDto } from './dto/update-like.dto';
@@ -11,8 +11,12 @@ export class LikesService {
     const { userId, postId } = createLikeDto;
     return this.prisma.like.create({
       data: {
-        user: { connect: { id: userId } },
-        post: { connect: { id: postId } },
+        user: {
+          connect: { id: userId },
+        },
+        post: {
+          connect: { id: postId },
+        },
       },
     });
   }
@@ -22,31 +26,24 @@ export class LikesService {
   }
 
   async findOne(id: number) {
-    const like = await this.prisma.like.findUnique({
-      where: { id },
-    });
-    if (!like) {
-      throw new NotFoundException(`Like with ID ${id} not found`);
-    }
-    return like;
+    return this.prisma.like.findUnique({ where: { id } });
   }
 
   async update(id: number, updateLikeDto: UpdateLikeDto) {
-    await this.findOne(id); // Memastikan like ada
+    // Note: Update logic might need more specific implementation
+    // depending on what can be updated (e.g., changing the user who liked?).
+    // For now, a basic implementation is provided.
     const { userId, postId } = updateLikeDto;
     return this.prisma.like.update({
       where: { id },
       data: {
-        ...(userId && { user: { connect: { id: userId } } }),
-        ...(postId && { post: { connect: { id: postId } } }),
+        userId,
+        postId,
       },
     });
   }
 
   async remove(id: number) {
-    await this.findOne(id); // Memastikan like ada
-    return this.prisma.like.delete({
-      where: { id },
-    });
+    return this.prisma.like.delete({ where: { id } });
   }
 }

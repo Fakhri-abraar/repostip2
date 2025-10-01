@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -8,8 +8,14 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
+    // Ambil bagian email sebelum '@' untuk dijadikan username
+    const username = createUserDto.email.split('@')[0];
+
     return this.prisma.user.create({
-      data: createUserDto,
+      data: {
+        ...createUserDto,
+        username,
+      },
     });
   }
 
@@ -18,18 +24,10 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-    });
-    if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    }
-    return user;
+    return this.prisma.user.findUnique({ where: { id } });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    // Memastikan user ada sebelum update
-    await this.findOne(id);
     return this.prisma.user.update({
       where: { id },
       data: updateUserDto,
@@ -37,10 +35,6 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    // Memastikan user ada sebelum dihapus
-    await this.findOne(id);
-    return this.prisma.user.delete({
-      where: { id },
-    });
+    return this.prisma.user.delete({ where: { id } });
   }
 }
