@@ -8,8 +8,7 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-<<<<<<< HEAD
-    // Ambil bagian email sebelum '@' untuk dijadikan username
+
     const username = createUserDto.email.split('@')[0];
 
     return this.prisma.user.create({
@@ -39,24 +38,3 @@ export class UsersService {
     return this.prisma.user.delete({ where: { id } });
   }
 }
-=======
-    // TODO: Implement user creation with Prisma
-  }
-
-  async findAll() {
-    // TODO: Implement find all users with Prisma
-  }
-
-  async findOne(id: number) {
-    // TODO: Implement find user by id with Prisma
-  }
-
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    // TODO: Implement user update with Prisma
-  }
-
-  async remove(id: number) {
-    // TODO: Implement user removal with Prisma
-  }
-}
->>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
