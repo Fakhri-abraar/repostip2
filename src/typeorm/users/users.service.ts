@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Injectable, NotFoundException } from '@nestjs/common';
-=======
-import { Injectable } from '@nestjs/common';
->>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,7 +13,6 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-<<<<<<< HEAD
     const newUser = this.userRepository.create(createUserDto);
     return this.userRepository.save(newUser);
   }
@@ -47,24 +42,3 @@ export class UsersService {
     }
   }
 }
-=======
-    // TODO: Implement user creation
-  }
-
-  async findAll(): Promise<User[]> {
-    // TODO: Implement find all users
-  }
-
-  async findOne(id: number): Promise<User> {
-    // TODO: Implement find user by id
-  }
-
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    // TODO: Implement user update
-  }
-
-  async remove(id: number): Promise<void> {
-    // TODO: Implement user removal
-  }
-}
->>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068

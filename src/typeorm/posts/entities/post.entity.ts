@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -36,11 +35,3 @@ export class Post {
   @UpdateDateColumn()
   updatedAt: Date;
 }
-=======
-import { Entity } from 'typeorm';
-
-@Entity('posts')
-export class Post {
-  // TODO: Implement post entity fields and relationships
-}
->>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Injectable, NotFoundException } from '@nestjs/common';
-=======
-import { Injectable } from '@nestjs/common';
->>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateLikeDto } from './dto/create-like.dto';
@@ -17,7 +13,6 @@ export class LikesService {
   ) {}
 
   async create(createLikeDto: CreateLikeDto): Promise<Like> {
-<<<<<<< HEAD
     const newLike = this.likeRepository.create({
       user: { id: createLikeDto.userId },
       post: { id: createLikeDto.postId },
@@ -38,7 +33,7 @@ export class LikesService {
   }
 
   async update(id: number, updateLikeDto: UpdateLikeDto): Promise<Like> {
-    const like = await this.findOne(id); // Check if like exists
+    const like = await this.findOne(id); 
     const updatedData: any = {};
     if (updateLikeDto.userId) {
       updatedData.user = { id: updateLikeDto.userId };
@@ -47,7 +42,6 @@ export class LikesService {
       updatedData.post = { id: updateLikeDto.postId };
     }
     
-    // Merging the existing like with the updated data to prevent overwriting
     const mergedLike = this.likeRepository.merge(like, updatedData);
     return this.likeRepository.save(mergedLike);
   }
@@ -59,24 +53,3 @@ export class LikesService {
     }
   }
 }
-=======
-    // TODO: Implement like creation
-  }
-
-  async findAll(): Promise<Like[]> {
-    // TODO: Implement find all likes
-  }
-
-  async findOne(id: number): Promise<Like> {
-    // TODO: Implement find like by id
-  }
-
-  async update(id: number, updateLikeDto: UpdateLikeDto): Promise<Like> {
-    // TODO: Implement like update
-  }
-
-  async remove(id: number): Promise<void> {
-    // TODO: Implement like removal
-  }
-}
->>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068

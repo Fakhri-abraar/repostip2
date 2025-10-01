@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -36,11 +35,3 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 }
-=======
-import { Entity } from 'typeorm';
-
-@Entity('users')
-export class User {
-  // TODO: Implement user entity fields and relationships
-}
->>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
