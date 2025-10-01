@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 // prisma/schema.prisma
+=======
+// Simple Twitter-like Schema for Students
+// Perfect for learning Prisma basics!
+>>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
 
 generator client {
   provider = "prisma-client-js"
@@ -10,17 +15,22 @@ datasource db {
 }
 
 model User {
+<<<<<<< HEAD
   id       Int    @id @default(autoincrement())
   username String @unique
   email    String @unique
   name     String
   posts    Post[]
   likes    Like[]
+=======
+  // TODO: Implement
+>>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
 
   @@map("users")
 }
 
 model Post {
+<<<<<<< HEAD
   id        Int      @id @default(autoincrement())
   title     String   // Pastikan baris ini ada
   content   String
@@ -28,11 +38,15 @@ model Post {
   authorId  Int
   likes     Like[]
   createdAt DateTime @default(now())
+=======
+  // TODO: Implement
+>>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
 
   @@map("posts")
 }
 
 model Like {
+<<<<<<< HEAD
   id     Int  @id @default(autoincrement())
   user   User @relation(fields: [userId], references: [id])
   userId Int
@@ -42,3 +56,9 @@ model Like {
   @@unique([userId, postId])
   @@map("likes")
 }
+=======
+  // TODO: Implement
+
+  @@map("likes")
+}
+>>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068

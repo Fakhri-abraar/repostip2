@@ -8,6 +8,7 @@ export class LikesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createLikeDto: CreateLikeDto) {
+<<<<<<< HEAD
     const { userId, postId } = createLikeDto;
     return this.prisma.like.create({
       data: {
@@ -47,3 +48,24 @@ export class LikesService {
     return this.prisma.like.delete({ where: { id } });
   }
 }
+=======
+    // TODO: Implement like creation with Prisma
+  }
+
+  async findAll() {
+    // TODO: Implement find all likes with Prisma
+  }
+
+  async findOne(id: number) {
+    // TODO: Implement find like by id with Prisma
+  }
+
+  async update(id: number, updateLikeDto: UpdateLikeDto) {
+    // TODO: Implement like update with Prisma
+  }
+
+  async remove(id: number) {
+    // TODO: Implement like removal with Prisma
+  }
+}
+>>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068

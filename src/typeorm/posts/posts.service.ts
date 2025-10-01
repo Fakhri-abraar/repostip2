@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Injectable, NotFoundException } from '@nestjs/common';
+=======
+import { Injectable } from '@nestjs/common';
+>>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -13,6 +17,7 @@ export class PostsService {
   ) {}
 
   async create(createPostDto: CreatePostDto): Promise<Post> {
+<<<<<<< HEAD
     const newPost = this.postRepository.create({
       ...createPostDto,
       author: { id: createPostDto.authorId },
@@ -49,3 +54,24 @@ export class PostsService {
     }
   }
 }
+=======
+    // TODO: Implement post creation
+  }
+
+  async findAll(): Promise<Post[]> {
+    // TODO: Implement find all posts
+  }
+
+  async findOne(id: number): Promise<Post> {
+    // TODO: Implement find post by id
+  }
+
+  async update(id: number, updatePostDto: UpdatePostDto): Promise<Post> {
+    // TODO: Implement post update
+  }
+
+  async remove(id: number): Promise<void> {
+    // TODO: Implement post removal
+  }
+}
+>>>>>>> 48d895c57156cf1223ad97c487bffeb3c2e80068
